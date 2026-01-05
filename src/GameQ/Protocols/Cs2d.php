@@ -33,7 +33,6 @@ use GameQ\Result;
  */
 class Cs2d extends Protocol
 {
-
     /**
      * Array of packets we want to query.
      */
@@ -104,7 +103,6 @@ class Cs2d extends Protocol
      */
     public function processResponse(): mixed
     {
-
         // We have a merged packet, try to split it back up
         if (count($this->packets_response) === 1) {
             // Temp buffer to make string manipulation easier
@@ -204,7 +202,6 @@ class Cs2d extends Protocol
      */
     protected function processPlayers(Buffer $buffer)
     {
-
         // Set the result to a new result instance
         $result = new Result();
 

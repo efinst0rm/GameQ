@@ -18,7 +18,6 @@
 
 namespace GameQ\Protocols;
 
-use GameQ\Protocol;
 use GameQ\Buffer;
 use GameQ\Result;
 use GameQ\Exception\ProtocolException;
@@ -33,7 +32,6 @@ use GameQ\Exception\ProtocolException;
  */
 class Teeworlds extends Protocol
 {
-
     /**
      * Array of packets we want to look up.
      * Each key should correspond to a defined method in this or a parent class
@@ -131,6 +129,7 @@ class Teeworlds extends Protocol
      * Handle processing all of the data returned
      *
      * @return array
+     * @throws \GameQ\Exception\Protocol
      */
     protected function processAll(Buffer $buffer)
     {

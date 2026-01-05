@@ -29,7 +29,6 @@ use GameQ\Exception\ProtocolException;
  */
 abstract class Protocol
 {
-
     /**
      * Constants for class states
      */
@@ -165,7 +164,6 @@ abstract class Protocol
 
     public function __construct(array $options = [])
     {
-
         // Set the options for this specific instance of the class
         $this->options = $options;
     }
@@ -175,7 +173,6 @@ abstract class Protocol
      */
     public function __toString(): string
     {
-
         return $this->name;
     }
 
@@ -184,7 +181,6 @@ abstract class Protocol
      */
     public function portDiff(): int
     {
-
         return $this->port_diff;
     }
 
@@ -195,7 +191,6 @@ abstract class Protocol
      */
     public function findQueryPort(int $clientPort): int
     {
-
         return $clientPort + $this->port_diff;
     }
 
@@ -204,7 +199,6 @@ abstract class Protocol
      */
     public function joinLink(): ?string
     {
-
         return $this->join_link;
     }
 
@@ -213,7 +207,6 @@ abstract class Protocol
      */
     public function name(): string
     {
-
         return $this->name;
     }
 
@@ -222,7 +215,6 @@ abstract class Protocol
      */
     public function nameLong(): string
     {
-
         return $this->name_long;
     }
 
@@ -231,7 +223,6 @@ abstract class Protocol
      */
     public function state(): int
     {
-
         return $this->state;
     }
 
@@ -240,7 +231,6 @@ abstract class Protocol
      */
     public function getProtocol(): string
     {
-
         return $this->protocol;
     }
 
@@ -261,7 +251,6 @@ abstract class Protocol
      */
     public function options(array $options = []): array
     {
-
         if (!empty($options)) {
             $this->options = $options;
         }
@@ -270,9 +259,7 @@ abstract class Protocol
     }
 
 
-    /*
-     * Packet Section
-     */
+    // Packet Section
 
     /**
      * Return specific packet(s)
@@ -323,9 +310,7 @@ abstract class Protocol
     }
 
 
-    /*
-     * Challenge section
-     */
+    // Challenge section
 
     /**
      * Determine whether or not this protocol has a challenge needed before querying
@@ -341,7 +326,6 @@ abstract class Protocol
      */
     public function challengeParseAndApply(Buffer $challenge_buffer): bool
     {
-
         return true;
     }
 
@@ -350,7 +334,6 @@ abstract class Protocol
      */
     protected function challengeApply(string $challenge_string): bool
     {
-
         // Let's loop through all the packets and append the challenge where it is needed
         foreach ($this->packets as $packet_type => $packet) {
             $this->packets[$packet_type] = sprintf($packet, $challenge_string);
@@ -398,13 +381,10 @@ abstract class Protocol
      */
     public function getNormalize(): array
     {
-
         return $this->normalize;
     }
 
-    /*
-     * General
-     */
+    // General
 
     /**
      * Generic method to allow protocol classes to do work right before the query is sent

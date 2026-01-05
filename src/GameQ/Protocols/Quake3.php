@@ -3,7 +3,6 @@
 
 namespace GameQ\Protocols;
 
-use GameQ\Protocol;
 use GameQ\Buffer;
 use GameQ\Result;
 use GameQ\Exception\ProtocolException;
@@ -98,6 +97,12 @@ class Quake3 extends Protocol
         return $this->{$this->responses[$header]}($buffer);
     }
 
+    /**
+     * @param Buffer $buffer
+     * @return array
+     * @throws Exception
+     * @throws \GameQ\Exception\Protocol
+     */
     protected function processStatus(Buffer $buffer)
     {
         // We need to split the data and offload

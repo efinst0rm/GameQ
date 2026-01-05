@@ -18,8 +18,10 @@
 
 namespace GameQ\Protocols;
 
-use GameQ\Protocol;
 use GameQ\Buffer;
+use GameQ\Exception\Protocol as Exception;
+use GameQ\Helpers\Str;
+use GameQ\Protocol;
 use GameQ\Result;
 use GameQ\Server;
 use GameQ\Exception\ProtocolException;
@@ -34,7 +36,6 @@ use GameQ\Exception\ProtocolException;
  */
 class Samp extends Protocol
 {
-
     /**
      * Array of packets we want to look up.
      * Each key should correspond to a defined method in this or a parent class
@@ -127,7 +128,6 @@ class Samp extends Protocol
      */
     public function processResponse(): mixed
     {
-
         // Results that will be returned
         $results = [];
 
@@ -169,9 +169,7 @@ class Samp extends Protocol
         return $results;
     }
 
-    /*
-     * Internal methods
-     */
+    // Internal methods
 
     /**
      * Handles processing the server status data
@@ -181,7 +179,6 @@ class Samp extends Protocol
      */
     protected function processStatus(Buffer $buffer)
     {
-
         // Set the result to a new result instance
         $result = new Result();
 
@@ -209,7 +206,6 @@ class Samp extends Protocol
      */
     protected function processPlayers(Buffer $buffer)
     {
-
         // Set the result to a new result instance
         $result = new Result();
 
@@ -235,7 +231,6 @@ class Samp extends Protocol
      */
     protected function processRules(Buffer $buffer)
     {
-
         // Set the result to a new result instance
         $result = new Result();
 

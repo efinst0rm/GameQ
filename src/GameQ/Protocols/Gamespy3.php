@@ -21,20 +21,21 @@ namespace GameQ\Protocols;
 use GameQ\Exception\ProtocolException;
 use GameQ\Protocol;
 use GameQ\Buffer;
+use GameQ\Helpers\Str;
+use GameQ\Protocol;
 use GameQ\Result;
 
 /**
  * GameSpy3 Protocol class
  *
  * Given the ability for non utf-8 characters to be used as hostnames, player names, etc... this
- * version returns all strings utf-8 encoded (utf8_encode).  To access the proper version of a
- * string response you must use utf8_decode() on the specific response.
+ * version returns all strings utf-8 encoded.  To access the proper version of a
+ * string response you must use Str::utf8ToIso() on the specific response.
  *
  * @author Austin Bischoff <austin@codebeard.com>
  */
 class Gamespy3 extends Protocol
 {
-
     /**
      * Array of packets we want to look up.
      * Each key should correspond to a defined method in this or a parent class
@@ -103,7 +104,6 @@ class Gamespy3 extends Protocol
      */
     public function processResponse(): mixed
     {
-
         // Holds the processed packets
         $processed = [];
 
@@ -162,16 +162,13 @@ class Gamespy3 extends Protocol
         return $result->fetch();
     }
 
-    /*
-     * Internal methods
-     */
+    // Internal methods
 
     /**
      * Handles cleaning up packets since the responses can be a bit "dirty"
      */
     protected function cleanPackets(array $packets = []): array
     {
-
         // Get the number of packets
         $packetCount = count($packets);
 

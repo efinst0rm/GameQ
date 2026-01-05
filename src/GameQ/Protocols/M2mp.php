@@ -18,7 +18,6 @@
 
 namespace GameQ\Protocols;
 
-use GameQ\Protocol;
 use GameQ\Buffer;
 use GameQ\Result;
 use GameQ\Exception\ProtocolException;
@@ -124,6 +123,7 @@ class M2mp extends Protocol
      * Process the status response
      *
      * @return array
+     * @throws \GameQ\Exception\Protocol
      */
     protected function processStatus(Buffer $buffer)
     {

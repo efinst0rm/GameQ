@@ -18,6 +18,7 @@
 
 namespace GameQ\Protocols;
 
+use GameQ\Exception\Protocol as Exception;
 use GameQ\Protocol;
 use GameQ\Result;
 use GameQ\Exception\ProtocolException;
@@ -33,7 +34,6 @@ use JsonException;
  */
 class Mumble extends Protocol
 {
-
     /**
      * Array of packets we want to look up.
      * Each key should correspond to a defined method in this or a parent class
@@ -144,9 +144,7 @@ class Mumble extends Protocol
         return $result->fetch();
     }
 
-    /*
-     * Internal methods
-     */
+    // Internal methods
 
     /**
      * Handles processing the the channels and user info

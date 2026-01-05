@@ -18,8 +18,10 @@
 
 namespace GameQ\Protocols;
 
-use GameQ\Protocol;
 use GameQ\Buffer;
+use GameQ\Exception\Protocol as Exception;
+use GameQ\Helpers\Str;
+use GameQ\Protocol;
 use GameQ\Result;
 use GameQ\Server;
 use GameQ\Exception\ProtocolException;
@@ -36,7 +38,6 @@ use GameQ\Exception\ProtocolException;
  */
 class Teamspeak3 extends Protocol
 {
-
     /**
      * Array of packets we want to look up.
      * Each key should correspond to a defined method in this or a parent class
@@ -104,7 +105,6 @@ class Teamspeak3 extends Protocol
      */
     public function beforeSend(Server $server): void
     {
-
         // Check to make sure we have a query_port because it is required
         if (!isset($this->options[Server::SERVER_OPTIONS_QUERY_PORT])
             || empty($this->options[Server::SERVER_OPTIONS_QUERY_PORT])
@@ -127,7 +127,6 @@ class Teamspeak3 extends Protocol
      */
     public function processResponse(): mixed
     {
-
         // Make a new buffer out of all of the packets
         $buffer = new Buffer(implode('', $this->packets_response));
 
@@ -187,9 +186,7 @@ class Teamspeak3 extends Protocol
         return $result->fetch();
     }
 
-    /*
-     * Internal methods
-     */
+    // Internal methods
 
     /**
      * Process the properties of the data.
@@ -197,12 +194,10 @@ class Teamspeak3 extends Protocol
      * Takes data in "key1=value1 key2=value2 ..." and processes it into a usable format
      *
      * @param $data
-     *
      * @return array
      */
     protected function processProperties($data)
     {
-
         // Will hold the properties we are sending back
         $properties = [];
 

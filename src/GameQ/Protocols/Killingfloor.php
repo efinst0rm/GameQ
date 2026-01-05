@@ -30,7 +30,6 @@ use GameQ\Result;
  */
 class Killingfloor extends Unreal2
 {
-
     /**
      * String name of this protocol class
      */
@@ -59,7 +58,6 @@ class Killingfloor extends Unreal2
      */
     protected function processDetails(Buffer $buffer)
     {
-
         // Set the result to a new result instance
         $result = new Result();
 

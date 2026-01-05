@@ -19,6 +19,7 @@
 namespace GameQ\Protocols;
 
 use GameQ\Buffer;
+use GameQ\Helpers\Str;
 use GameQ\Result;
 
 /**
@@ -39,6 +40,11 @@ class Codmw2 extends Quake3
      */
     protected string $name_long = "Call of Duty: Modern Warfare 2";
     
+    /**
+     * @param Buffer $buffer
+     * @return array
+     * @throws \GameQ\Exception\Protocol
+     */
     protected function processPlayers(Buffer $buffer)
     {
         // Temporarily cache players in order to remove last
