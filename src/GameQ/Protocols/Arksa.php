@@ -19,7 +19,7 @@
 
 namespace GameQ\Protocols;
 
-use GameQ\Exception\Protocol as Exception;
+use GameQ\Exception\ProtocolException;
 use GameQ\Result;
 
 /**
@@ -34,60 +34,45 @@ class Arksa extends Eos
 {
     /**
      * The protocol being used
-     *
-     * @var string
      */
-    protected $protocol = 'arksa';
+    protected string $protocol = 'arksa';
 
     /**
      * Longer string name of this protocol class
-     *
-     * @var string
      */
-    protected $name_long = 'ARK: Survival Ascended';
+    protected string $name_long = 'ARK: Survival Ascended';
 
     /**
      * String name of this protocol class
-     *
-     * @var string
      */
-    protected $name = 'arksa';
+    protected string $name = 'arksa';
 
     /**
      * Grant type used for authentication
-     *
-     * @var string
      */
-    protected $grant_type = 'client_credentials';
+    protected string $grant_type = 'client_credentials';
 
     /**
      * Deployment ID for the game or application
-     *
-     * @var string
      */
-    protected $deployment_id = 'ad9a8feffb3b4b2ca315546f038c3ae2';
+    protected ?string $deployment_id = 'ad9a8feffb3b4b2ca315546f038c3ae2';
 
     /**
      * User ID for authentication
-     *
-     * @var string
      */
-    protected $user_id = 'xyza7891muomRmynIIHaJB9COBKkwj6n';
+    protected ?string $user_id = 'xyza7891muomRmynIIHaJB9COBKkwj6n';
 
     /**
      * User secret key for authentication
-     *
-     * @var string
      */
-    protected $user_secret = 'PP5UGxysEieNfSrEicaD1N2Bb3TdXuD7xHYcsdUHZ7s';
+    protected ?string $user_secret = 'PP5UGxysEieNfSrEicaD1N2Bb3TdXuD7xHYcsdUHZ7s';
 
     /**
      * Process the response from the EOS API and filter ARK-specific server data
      *
-     * @return array
-     * @throws Exception
+     * @throws ProtocolException
      */
-    public function processResponse()
+    public function processResponse(): array
     {
         $serverData = parent::processResponse();
 
@@ -98,7 +83,7 @@ class Arksa extends Eos
         });
 
         if (!$filtered) {
-            throw new Exception('No matching sessions found for the specified port.');
+            throw new ProtocolException('No matching sessions found for the specified port.');
         }
 
         $session = reset($filtered);

@@ -20,7 +20,6 @@ namespace GameQ\Protocols;
 
 use GameQ\Buffer;
 use GameQ\Exception\ProtocolException;
-use GameQ\Protocol;
 use GameQ\Result;
 
 /**

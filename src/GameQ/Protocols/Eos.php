@@ -19,7 +19,7 @@
 
 namespace GameQ\Protocols;
 
-use GameQ\Exception\Protocol as Exception;
+use GameQ\Exception\ProtocolException;
 use GameQ\Server;
 
 /**
@@ -34,73 +34,53 @@ class Eos extends Http
 {
     /**
      * The protocol being used
-     *
-     * @var string
      */
-    protected $protocol = 'eos';
+    protected string $protocol = 'eos';
 
     /**
      * Longer string name of this protocol class
-     *
-     * @var string
      */
-    protected $name_long = 'Epic Online Services';
+    protected string $name_long = 'Epic Online Services';
 
     /**
      * String name of this protocol class
-     *
-     * @var string
      */
-    protected $name = 'eos';
+    protected string $name = 'eos';
 
     /**
      * Grant type used for authentication
-     *
-     * @var string
      */
-    protected $grant_type = 'client_credentials';
+    protected string $grant_type = 'client_credentials';
 
     /**
      * Deployment ID for the game or application
-     *
-     * @var string
      */
-    protected $deployment_id = null;
+    protected ?string $deployment_id = null;
 
     /**
      * User ID for authentication
-     *
-     * @var string
      */
-    protected $user_id = null;
+    protected ?string $user_id = null;
 
     /**
      * User secret key for authentication
-     *
-     * @var string
      */
-    protected $user_secret = null;
+    protected ?string $user_secret = null;
 
     /**
      * Holds the server ip so we can overwrite it back
-     *
-     * @var string
      */
-    protected $serverIp = null;
+    protected ?string $serverIp = null;
 
     /**
      * Holds the server port query so we can overwrite it back
-     *
-     * @var string
      */
-    protected $serverPortQuery = null;
+    protected ?string $serverPortQuery = null;
 
     /**
      * Normalize some items
-     *
-     * @var array
      */
-    protected $normalize = [
+    protected array $normalize = [
         // General
         'general' => [
             // target       => source
@@ -115,10 +95,9 @@ class Eos extends Http
     /**
      * Process the response from the EOS API
      *
-     * @return array
-     * @throws Exception
+     * @throws ProtocolException
      */
-    public function processResponse()
+    public function processResponse(): array
     {
         $index = ($this->grant_type === 'external_auth') ? 2 : 1;
         $server_data = isset($this->packets_response[$index]) ? json_decode($this->packets_response[$index], true) : null;
@@ -127,7 +106,7 @@ class Eos extends Http
 
         // If no server data, throw an exception
         if (empty($server_data)) {
-            throw new Exception('No server data found. Server might be offline.');
+            throw new ProtocolException('No server data found. Server might be offline.');
         }
 
         return $server_data;
@@ -135,10 +114,8 @@ class Eos extends Http
 
     /**
      * Called before sending the request
-     *
-     * @param Server $server
      */
-    public function beforeSend(Server $server)
+    public function beforeSend(Server $server): void
     {
         $this->serverIp = $server->ip();
         $this->serverPortQuery = $server->portQuery();
@@ -156,10 +133,8 @@ class Eos extends Http
 
     /**
      * Authenticate to get the access token
-     *
-     * @return string|null
      */
-    protected function authenticate()
+    protected function authenticate(): ?string
     {
         $auth_url = "https://api.epicgames.dev/auth/v1/oauth/token";
         $auth_headers = [
@@ -189,11 +164,8 @@ class Eos extends Http
 
     /**
      * Query the EOS server for matchmaking data
-     *
-     * @param string $auth_token
-     * @return array|null
      */
-    protected function queryServers($auth_token)
+    protected function queryServers(string $auth_token): ?array
     {
         $server_query_url = "https://api.epicgames.dev/matchmaking/v1/{$this->deployment_id}/filter";
         $query_headers = [
@@ -220,10 +192,8 @@ class Eos extends Http
 
     /**
      * Handle device authentication for external auth type
-     *
-     * @return array|null
      */
-    protected function deviceAuthentication()
+    protected function deviceAuthentication(): ?array
     {
         $device_auth_url = "https://api.epicgames.dev/auth/v1/accounts/deviceid";
         $device_auth_headers = [
@@ -239,13 +209,8 @@ class Eos extends Http
 
     /**
      * Execute an HTTP request
-     *
-     * @param string $url
-     * @param array $headers
-     * @param string $postfields
-     * @return array|null
      */
-    protected function httpRequest($url, $headers, $postfields)
+    protected function httpRequest(string $url, array $headers, string $postfields): ?array
     {
         $ch = curl_init();
 
@@ -268,13 +233,8 @@ class Eos extends Http
 
     /**
      * Safely retrieves an attribute from an array or returns a default value.
-     *
-     * @param array $attributes
-     * @param string $key
-     * @param mixed $default
-     * @return mixed
      */
-    protected function getAttribute($attributes, $key, $default = null)
+    protected function getAttribute(array $attributes, string $key, $default = null): mixed
     {
         return isset($attributes[$key]) ? $attributes[$key] : $default;
     }

@@ -18,7 +18,7 @@
 
 namespace GameQ\Protocols;
 
-use GameQ\Exception\Protocol as Exception;
+use GameQ\Exception\ProtocolException;
 use GameQ\Helpers\Arr;
 use GameQ\Result;
 use GameQ\Server;
@@ -45,40 +45,30 @@ class Stationeers extends Http
 
     /**
      * Packets to send
-     *
-     * @var array
      */
-    protected $packets = [
+    protected array $packets = [
         self::PACKET_STATUS => "GET /list HTTP/1.0\r\nAccept: */*\r\n\r\n",
     ];
 
     /**
      * The protocol being used
-     *
-     * @var string
      */
-    protected $protocol = 'stationeers';
+    protected string $protocol = 'stationeers';
 
     /**
      * String name of this protocol class
-     *
-     * @var string
      */
-    protected $name = 'stationeers';
+    protected string $name = 'stationeers';
 
     /**
      * Longer string name of this protocol class
-     *
-     * @var string
      */
-    protected $name_long = "Stationeers";
+    protected string $name_long = "Stationeers";
 
     /**
      * Normalize some items
-     *
-     * @var array
      */
-    protected $normalize = [
+    protected array $normalize = [
         // General
         'general' => [
             // target       => source
@@ -95,10 +85,8 @@ class Stationeers extends Http
      * Holds the real ip so we can overwrite it back
      *
      * **NOTE:** These is used during the runtime.
-     *
-     * @var string
      */
-    protected $realIp = null;
+    protected ?string $realIp = null;
 
     /**
      * Holds the real port so we can overwrite it back
@@ -107,16 +95,12 @@ class Stationeers extends Http
      *
      * @var int
      */
-    protected $realPortQuery = null;
+    protected ?string $realPortQuery = null;
 
     /**
      * Handle changing the call to call a central server rather than the server directly
-     *
-     * @param Server $server
-     *
-     * @return void
      */
-    public function beforeSend(Server $server)
+    public function beforeSend(Server $server): void
     {
         // Determine the connection information to be used for the "Metaserver"
         $metaServerHost = $server->getOption('meta_host') ? $server->getOption('meta_host') : self::SERVER_LIST_HOST;
@@ -129,11 +113,10 @@ class Stationeers extends Http
 
     /**
      * Process the response
-     *
-     * @return array
-     * @throws Exception
+     * 
+     * @throws ProtocolException
      */
-    public function processResponse()
+    public function processResponse(): array
     {
         // Ensure there is a reply from the "Metaserver"
         if (empty($this->packets_response)) {
@@ -145,7 +128,7 @@ class Stationeers extends Http
 
         // Return should be JSON, let's validate
         if (!isset($matches[0]) || ($json = json_decode($matches[0])) === null) {
-            throw new Exception(__METHOD__ . " JSON response from Stationeers Metaserver is invalid.");
+            throw new ProtocolException(__METHOD__ . " JSON response from Stationeers Metaserver is invalid.");
         }
 
         // By default no server is found
@@ -165,7 +148,7 @@ class Stationeers extends Http
 
         // Ensure the provided Server has been found in the list provided by the "Metaserver"
         if (! $server) {
-            throw new Exception(sprintf(
+            throw new ProtocolException(sprintf(
                 '%s Unable to find the server "%s:%d" in the Stationeer Metaservers server list',
                 __METHOD__,
                 $this->realIp,

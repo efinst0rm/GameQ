@@ -19,9 +19,7 @@
 namespace GameQ\Protocols;
 
 use GameQ\Exception\ProtocolException;
-use GameQ\Protocol;
 use GameQ\Buffer;
-use GameQ\Exception\Protocol as Exception;
 use GameQ\Helpers\Str;
 use GameQ\Protocol;
 use GameQ\Result;
@@ -164,7 +162,7 @@ class Gamespy2 extends Protocol
             if ($key === '') {
                 break;
             }
-            $result->add($key, $this->convertToUtf8($buffer->readString()));
+            $result->add($key, Str::isoToUtf8($buffer->readString()));
         }
 
         return $result->fetch();
@@ -227,7 +225,7 @@ class Gamespy2 extends Protocol
         // Get the values
         while ($buffer->getLength() > 4) {
             foreach ($varNames as $varName) {
-                $result->addSub($dataType, $this->convertToUtf8($varName), $this->convertToUtf8($buffer->readString()));
+                $result->addSub($dataType, Str::isoToUtf8($varName), Str::isoToUtf8($buffer->readString()));
             }
             if ($buffer->lookAhead() === "\x00") {
                 $buffer->skip();

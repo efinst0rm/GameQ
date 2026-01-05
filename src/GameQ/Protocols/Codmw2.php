@@ -65,7 +65,7 @@ class Codmw2 extends Quake3
             $playerInfo->skip();
 
             // Add player name, encoded
-            $player['name'] = $this->convertToUtf8(trim(($playerInfo->readString('"'))));
+            $player['name'] = Str::isoToUtf8(trim(($playerInfo->readString('"'))));
 
             // Add player
             $players[] = $player;

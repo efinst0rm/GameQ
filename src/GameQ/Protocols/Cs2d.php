@@ -19,7 +19,6 @@
 namespace GameQ\Protocols;
 
 use GameQ\Exception\ProtocolException;
-use GameQ\Protocol;
 use GameQ\Buffer;
 use GameQ\Result;
 
@@ -183,8 +182,8 @@ class Cs2d extends Protocol
         $result->add('lua_scripts', (int)$this->readFlag($serverFlags, 6));
 
         // Read the rest of the buffer data
-        $result->add('servername', $this->convertToUtf8($buffer->readPascalString()));
-        $result->add('mapname', $this->convertToUtf8($buffer->readPascalString()));
+        $result->add('servername', Str::isoToUtf8($buffer->readPascalString()));
+        $result->add('mapname', Str::isoToUtf8($buffer->readPascalString()));
         $result->add('num_players', $buffer->readInt8());
         $result->add('max_players', $buffer->readInt8());
         $result->add('game_mode', $buffer->readInt8());
@@ -214,7 +213,7 @@ class Cs2d extends Protocol
             if (($id = $buffer->readInt8()) !== 0) {
                 // Add the results
                 $result->addPlayer('id', $id);
-                $result->addPlayer('name', $this->convertToUtf8($buffer->readPascalString()));
+                $result->addPlayer('name', Str::isoToUtf8($buffer->readPascalString()));
                 $result->addPlayer('team', $buffer->readInt8());
                 $result->addPlayer('score', $buffer->readInt32());
                 $result->addPlayer('deaths', $buffer->readInt32());

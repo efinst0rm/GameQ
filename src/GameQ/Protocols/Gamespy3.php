@@ -19,7 +19,6 @@
 namespace GameQ\Protocols;
 
 use GameQ\Exception\ProtocolException;
-use GameQ\Protocol;
 use GameQ\Buffer;
 use GameQ\Helpers\Str;
 use GameQ\Protocol;
@@ -227,7 +226,7 @@ class Gamespy3 extends Protocol
             if ($key === '') {
                 break;
             }
-            $result->add($key, $this->convertToUtf8($buffer->readString()));
+            $result->add($key, Str::isoToUtf8($buffer->readString()));
         }
     }
 
@@ -301,7 +300,7 @@ class Gamespy3 extends Protocol
                         break;
                     }
                     // Add the value to the proper item in the correct group
-                    $result->addSub($item_group, $item_type, $this->convertToUtf8(trim($val)));
+                    $result->addSub($item_group, $item_type, Str::isoToUtf8(trim($val)));
                 }
                 // Unset our buffer
                 unset($buf_temp);
