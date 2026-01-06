@@ -19,8 +19,8 @@
 namespace GameQ\Protocols;
 
 use GameQ\Exception\ProtocolException;
-use GameQ\Buffer;
 use GameQ\Protocol;
+use GameQ\Buffer;
 use GameQ\Result;
 
 /**

@@ -30,11 +30,8 @@ class Str
      *
      * @see https://en.wikipedia.org/wiki/ISO/IEC_8859-1
      * @see https://en.wikipedia.org/wiki/UTF-8
-     *
-     * @param string $value The ISO 8859-1 encoded string.
-     * @return string The UTF-8 encoded string.
      */
-    public static function isoToUtf8($value)
+    public static function isoToUtf8(string $value): string
     {
         return iconv('ISO-8859-1', 'UTF-8', $value);
     }
@@ -44,11 +41,8 @@ class Str
      *
      * @see https://en.wikipedia.org/wiki/ISO/IEC_8859-1
      * @see https://en.wikipedia.org/wiki/UTF-8
-     *
-     * @param string $value The UTF-8 encoded string.
-     * @return string  The ISO 8859-1 encoded string.
      */
-    public static function utf8ToIso($value)
+    public static function utf8ToIso(string $value): string
     {
         return iconv('UTF-8', 'ISO-8859-1', $value);
     }

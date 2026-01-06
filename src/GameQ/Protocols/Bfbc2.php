@@ -20,6 +20,7 @@ namespace GameQ\Protocols;
 
 use GameQ\Exception\ProtocolException;
 use GameQ\Buffer;
+use GameQ\Protocol;
 use GameQ\Result;
 
 /**
@@ -181,7 +182,7 @@ class Bfbc2 extends Protocol
      * Process the server details
      *
      * @return array
-     * @throws \GameQ\Exception\Protocol
+     * @throws ProtocolException
      */
     protected function processDetails(Buffer $buffer)
     {
@@ -242,7 +243,7 @@ class Bfbc2 extends Protocol
      * Process the server version
      *
      * @return array
-     * @throws \GameQ\Exception\Protocol
+     * @throws ProtocolException
      */
     protected function processVersion(Buffer $buffer)
     {
@@ -263,7 +264,7 @@ class Bfbc2 extends Protocol
      * Process the players
      *
      * @return array
-     * @throws \GameQ\Exception\Protocol
+     * @throws ProtocolException
      */
     protected function processPlayers(Buffer $buffer)
     {

@@ -21,6 +21,7 @@ namespace GameQ\Protocols;
 use GameQ\Buffer;
 use GameQ\Result;
 use GameQ\Exception\ProtocolException;
+use GameQ\Protocol;
 
 /**
  * Teeworlds Protocol class
@@ -129,7 +130,7 @@ class Teeworlds extends Protocol
      * Handle processing all of the data returned
      *
      * @return array
-     * @throws \GameQ\Exception\Protocol
+     * @throws ProtocolException
      */
     protected function processAll(Buffer $buffer)
     {

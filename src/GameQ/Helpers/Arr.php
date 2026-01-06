@@ -29,19 +29,12 @@ use RecursiveIteratorIterator;
  */
 class Arr
 {
-    use Arr\Recursively;
-
     /**
      * This helper does process each element of the provided array recursively.
      * It does so allowing for modifications to the provided array and without
      * using actual recursive calls.
-     *
-     * @param array $data
-     * @param Closure $callback
-     *
-     * @return array
      */
-    public static function recursively(array $data, Closure $callback)
+    public static function recursively(array $data, Closure $callback): array
     {
         // Initialize the RecursiveArrayIterator for the provided data
         $arrayIterator = new RecursiveArrayIterator($data);
@@ -55,33 +48,24 @@ class Arr
             /** @var RecursiveArrayIterator */
             $subIterator = $recursiveIterator->getSubIterator();
 
-            // Wrap the implementation to handle PHP < 8.1 behaviour
-            static::handleArrayIteratorCopyOrReference(
-                $data,
-                $recursiveIterator,
-                $subIterator,
-                function () use ($callback, &$value, $key, $subIterator) {
-                    // Execute the callback
-                    $callback($value, $key, $subIterator);
+            // Execute the callback
+            $callback($value, $key, $subIterator);
 
-                    // Update the modified value
-                    $subIterator->offsetSet($key, $value);
-                }
-            );
+            // Update the modified value
+            $subIterator->offsetSet($key, $value);
         }
 
         // Return the processed data
-        return static::getArrayIteratorCopyOrReference($data, $arrayIterator);
+        return $arrayIterator->getArrayCopy();
     }
 
     /**
      * This helper is intended to hash the provided array's values
      * and return it back as key => hash.
-     *
-     * @param array $array
+     * 
      * @return array<string|int, string>
      */
-    public static function hashes(array $array)
+    public static function hashes(array $array): array
     {
         $hashes = [];
 
@@ -97,13 +81,8 @@ class Arr
 
     /**
      * This helper is intended to set a value inside the provided array.
-     *
-     * @param array &$array
-     * @param array $path
-     * @param mixed $value
-     * @return array
      */
-    public static function set(array &$array, array $path, $value)
+    public static function set(array &$array, array $path, $value): array
     {
         $current = &$array;
 
@@ -132,11 +111,8 @@ class Arr
      * This helper method is intended to shift the provided arguments to the left.
      *
      * **Example:** foo, bar, baz becomes bar, baz, baz
-     *
-     * @param mixed &...$args
-     * @return void
      */
-    public static function shift(&...$args)
+    public static function shift(&...$args): void
     {
         // Get the array keys to ensure numeric index
         $keys = array_keys($args);

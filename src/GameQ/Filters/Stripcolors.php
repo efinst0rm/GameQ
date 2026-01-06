@@ -34,15 +34,11 @@ class Stripcolors extends Base
 {
     /**
      * Determines if data should be persisted for unit testing.
-     *
-     * @var bool
      */
-    protected $writeTestData = false;
+    protected bool $writeTestData = false;
 
     /**
      * Apply this filter
-     *
-     * @return mixed
      */
     public function apply(array $result, Server $server): mixed
     {
@@ -118,7 +114,7 @@ class Stripcolors extends Base
     protected function stripUnreal(mixed &$string): void
     {
         if (is_string($string)) {
-            return preg_replace('/\x1b.../', '', $string);
+            $string = preg_replace('/\x1b.../', '', $string);
         }
     }
 

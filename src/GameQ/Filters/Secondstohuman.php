@@ -52,8 +52,6 @@ class Secondstohuman extends Base
 
     /**
      * Secondstohuman constructor.
-     *
-     * @param array $options
      */
     public function __construct(array $options = [])
     {
@@ -72,8 +70,6 @@ class Secondstohuman extends Base
 
     /**
      * Apply this filter to the result data
-     *
-     * @return mixed
      */
     public function apply(array $result, Server $server): mixed
     {

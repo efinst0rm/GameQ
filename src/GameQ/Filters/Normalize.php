@@ -32,10 +32,8 @@ class Normalize extends Base
 {
     /**
      * Determines if data should be persisted for unit testing.
-     *
-     * @var bool
      */
-    protected $writeTestData = false;
+    protected bool $writeTestData = false;
 
     /**
      * Holds the protocol specific normalize information
@@ -44,8 +42,6 @@ class Normalize extends Base
 
     /**
      * Apply this filter
-     *
-     * @return mixed
      */
     public function apply(array $result, Server $server): mixed
     {
@@ -103,13 +99,8 @@ class Normalize extends Base
 
     /**
      * Check a section for normalization
-     *
-     * @param string $section
-     * @param array $data
-     *
-     * @return array
      */
-    protected function check($section, array $data)
+    protected function check(string $section, array $data): array
     {
         // Initialize the normalized output
         $normalized = [];

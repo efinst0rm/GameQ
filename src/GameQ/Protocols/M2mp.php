@@ -21,6 +21,7 @@ namespace GameQ\Protocols;
 use GameQ\Buffer;
 use GameQ\Result;
 use GameQ\Exception\ProtocolException;
+use GameQ\Protocol;
 
 /**
  * Mafia 2 Multiplayer Protocol Class
@@ -123,7 +124,7 @@ class M2mp extends Protocol
      * Process the status response
      *
      * @return array
-     * @throws \GameQ\Exception\Protocol
+     * @throws ProtocolException
      */
     protected function processStatus(Buffer $buffer)
     {
