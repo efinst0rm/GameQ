@@ -18,10 +18,10 @@
 
 namespace GameQ\Protocols;
 
+use GameQ\Protocol;
 use GameQ\Buffer;
 use GameQ\Result;
 use GameQ\Exception\ProtocolException;
-use GameQ\Protocol;
 
 /**
  * Mafia 2 Multiplayer Protocol Class

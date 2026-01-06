@@ -3,6 +3,7 @@
 
 namespace GameQ\Protocols;
 
+use GameQ\Protocol;
 use GameQ\Buffer;
 use GameQ\Result;
 use GameQ\Exception\ProtocolException;

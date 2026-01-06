@@ -3,10 +3,10 @@
 
 namespace GameQ\Protocols;
 
+use GameQ\Protocol;
 use GameQ\Buffer;
 use GameQ\Result;
 use GameQ\Exception\ProtocolException;
-use GameQ\Protocol;
 
 /**
  * Quake3 Protocol Class
@@ -99,9 +99,7 @@ class Quake3 extends Protocol
     }
 
     /**
-     * @param Buffer $buffer
      * @return array
-     * @throws Exception
      * @throws ProtocolException
      */
     protected function processStatus(Buffer $buffer)

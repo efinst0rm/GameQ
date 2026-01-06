@@ -19,6 +19,7 @@
 namespace GameQ\Protocols;
 
 use GameQ\Exception\ProtocolException;
+use GameQ\Protocol;
 use GameQ\Result;
 
 /**
@@ -90,10 +91,8 @@ class Ventrilo extends Protocol
 
     /**
      * Encryption table for the header
-     *
-     * @var array
      */
-    private $head_encrypt_table = [
+    private array $head_encrypt_table = [
         0x80,
         0xe5,
         0x0e,
@@ -354,10 +353,8 @@ class Ventrilo extends Protocol
 
     /**
      * Encryption table for the data
-     *
-     * @var array
      */
-    private $data_encrypt_table = [
+    private array $data_encrypt_table = [
         0x82,
         0x8b,
         0x7f,

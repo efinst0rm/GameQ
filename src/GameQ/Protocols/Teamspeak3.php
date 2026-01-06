@@ -18,9 +18,9 @@
 
 namespace GameQ\Protocols;
 
+use GameQ\Protocol;
 use GameQ\Buffer;
 use GameQ\Helpers\Str;
-use GameQ\Protocol;
 use GameQ\Result;
 use GameQ\Server;
 use GameQ\Exception\ProtocolException;
