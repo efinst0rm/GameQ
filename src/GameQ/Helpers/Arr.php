@@ -62,7 +62,7 @@ class Arr
     /**
      * This helper is intended to hash the provided array's values
      * and return it back as key => hash.
-     * 
+     *
      * @return array<string|int, string>
      */
     public static function hashes(array $array): array

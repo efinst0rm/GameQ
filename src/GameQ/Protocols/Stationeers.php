@@ -113,7 +113,7 @@ class Stationeers extends Http
 
     /**
      * Process the response
-     * 
+     *
      * @throws ProtocolException
      */
     public function processResponse(): array
