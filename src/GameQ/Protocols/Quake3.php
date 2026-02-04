@@ -7,6 +7,7 @@ use GameQ\Protocol;
 use GameQ\Buffer;
 use GameQ\Result;
 use GameQ\Exception\ProtocolException;
+use GameQ\Helpers\Str;
 
 /**
  * Quake3 Protocol Class
